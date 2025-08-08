@@ -1,0 +1,73 @@
+<form [formGroup]="form" (ngSubmit)="validateForm()">
+    <fieldset>
+        <legend>Ajout d'un voyage</legend>
+
+        <!-- Type de voyage -->
+        <div>
+            <label for="typeVoyage">Type de voyage : </label>
+            <select id="typeVoyage" name="typeVoyage" formControlName="typeVoyage">
+                @for (typeV of listTypesVoyage; track typeV) {
+                    <option [value]="typeV">{{ typeV | titlecase }}</option>
+                }
+            </select>
+            @if (form.get('typeVoyage')?.dirty && form.get('typeVoyage')?.errors) {
+                <p class="error">Le type de voyage est obligatoire !</p>
+            }
+        </div>
+
+        <!-- Distance -->
+        <div>
+            <label for="distanceKm">Distance : </label>
+            <input type="number" id="distanceKm" name="distanceKm" formControlName="distanceKm" min="0">
+            @if (form.get('distanceKm')?.dirty && form.get('distanceKm')?.errors) {
+                <p class="error">La distance doit être supérieure à 0 !</p>
+            }
+        </div>
+
+        <!-- Consommation pour voitures et trains -->
+        @if (form.value.typeVoyage === 'voiture' || form.value.typeVoyage === 'train') {
+            <div>
+                <label for="consommationPour100Km">Consommation pour 100 km : </label>
+                <input type="number" id="consommationPour100Km" name="consommationPour100Km" 
+                       formControlName="consommationPour100Km" min="0">
+                @if (form.get('consommationPour100Km')?.dirty && form.get('consommationPour100Km')?.errors) {
+                    <p class="error">La consommation doit être supérieure à 0 !</p>
+                }
+            </div>
+        }
+
+        <!-- Choix du type de carburant -->
+        @if (form.value.typeVoyage === 'voiture') {
+            <div>
+                <label for="typeCarburant">Type de carburant : </label>
+                <select id="typeCarburant" name="typeCarburant" formControlName="typeCarburant">
+                    <option value="essence">Essence</option>
+                    <option value="diesel">Diesel</option>
+                </select>
+            </div>
+        }
+        @if (form.value.typeVoyage === 'train') {
+            <div>
+                <label for="typeCarburant">Type de carburant : </label>
+                <select id="typeCarburant" name="typeCarburant" formControlName="typeCarburant">
+                    <option value="électricité">Électricité</option>
+                    <option value="diesel">Diesel</option>
+                </select>
+            </div>
+        }
+
+        <!-- Date -->
+        <div>
+            <label for="dateVoyage">Date : </label>
+            <input type="date" id="date" name="date" formControlName="dateVoyage">
+            @if (form.get('dateVoyage')?.dirty && form.get('dateVoyage')?.errors) {
+                <p class="error">La date est obligatoire !</p>
+            }
+        </div>
+
+        <!-- Bouton -->
+        <div>
+            <button type="submit" matButton="filled" [disabled]="form.invalid">Ajouter un voyage</button>
+        </div>
+    </fieldset>
+</form>

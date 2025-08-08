@@ -1,0 +1,18 @@
+<mat-toolbar>
+    <mat-toolbar-row class="first">
+        <button matIconButton class="header-icon">
+            <mat-icon>menu</mat-icon>
+        </button>
+        <span><h1>Calcul de l'empreinte carbone</h1></span>
+        <span class="header-spacer"></span>
+        <button matIconButton [routerLink]="['/profile', nomUtilisateur()]" class="header-icon favorite-icon" aria-label="Voir le profil">
+            <mat-icon>account_circle</mat-icon>
+        </button>
+        <span> Voir le profil</span>
+    </mat-toolbar-row>
+
+    <mat-toolbar-row class="second">
+        <span><h2>Bienvenue {{ nomUtilisateur() }} !</h2></span>
+    </mat-toolbar-row>
+</mat-toolbar>
+  

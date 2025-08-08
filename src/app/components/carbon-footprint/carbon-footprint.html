@@ -1,0 +1,69 @@
+<div class="content">
+    <p [ngStyle]="{'color': consommationPour100Km() > 7 ? 'red' : consommationPour100Km() < 4 ? 'green' : 'black'}">
+        Consommation pour 100 kms : {{ consommationPour100Km() | number: '1.2-2' }} L
+    </p>
+    
+    <p [ngClass]="{'haute-distance': distanceKm() > 500, 'basse-distance': distanceKm() < 100}">
+        Nombre de kilomètres : {{ distanceKm() }} km
+    </p>
+    
+    <p>
+        Consommation totale : {{ consommationPour100Km() * distanceKm() / 100 | number: '1.2-2' }} L
+    </p>
+    
+    <p>
+        Quantité totale de CO² : {{ quantiteTotaleCO2() }} g
+    </p>
+    
+    @if (consommationPour100Km() > 7) {
+        <div >Attention, votre consommation est élevée</div>
+    } @else if (consommationPour100Km() < 4) {
+        <div>Félicitations, votre consommation est faible</div>
+    }
+    
+    <button matButton="filled" (click)="ajouter100km()">+100km</button>
+    
+    <hr>
+
+    <h2 class="center">Liste des voyages</h2>
+    <table id="table-voyages">
+        <thead>
+            <tr>
+                <th>Distance</th>
+                <th>Consommation pour 100 kms</th>
+                <th>Quantité totale de CO²</th>
+                <th>Date du voyage</th>
+                <th>Type de voyage</th>
+                <th>Type de carburant</th>
+
+            </tr>
+        </thead>
+        <tbody>
+            @for (voyage of voyages(); track voyage) {
+            <tr>
+                <td>{{ voyage.distanceKm }} km</td>
+                @if (voyage.consommationPour100Km > 0) {
+                    <td>{{ voyage.consommationPour100Km }} L</td>
+                } @else {
+                    <td> / </td>
+                }
+                <td>{{ voyage.quantiteCO2 | number: '1.2-2' }} g</td>
+                <td>{{ voyage.date | date: 'dd/MM/yyyy' }}</td>
+                <td>{{ voyage.typeVoyage }}</td>
+                <td>{{ voyage.typeCarburant || '-' }}</td>
+
+            </tr>
+            }
+        </tbody>
+    </table>
+    
+    <button matButton="filled" (click)="genererVoyage()">Générer voyage</button>
+    
+    <hr>
+
+    <app-carbon-footprint-form></app-carbon-footprint-form>
+    
+    <hr>
+
+    <app-carbon-footprint-result></app-carbon-footprint-result>
+</div>
