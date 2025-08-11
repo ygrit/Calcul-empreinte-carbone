@@ -7,11 +7,11 @@ import { ResumeVoyages } from '../models/resume-voyages';
 })
 export class CarbonFootprintComputeService {
   private listVoyages: Voyage[] = [
-    { distanceKm: 50, consommationPour100Km: 5, quantiteCO2: 0, date: new Date(Date.now()), typeVoyage: 'voiture' },
-    { distanceKm: 150, consommationPour100Km: 6, quantiteCO2: 0, date: new Date(Date.now()), typeVoyage: 'voiture' },
-    { distanceKm: 250, consommationPour100Km: 7, quantiteCO2: 0, date: new Date(Date.now()), typeVoyage: 'voiture' },
-    { distanceKm: 350, consommationPour100Km: 8, quantiteCO2: 0, date: new Date(Date.now()), typeVoyage: 'voiture' },
-    { distanceKm: 450, consommationPour100Km: 9, quantiteCO2: 0, date: new Date(Date.now()), typeVoyage: 'voiture' }
+    { distanceKm: 50, consommationPour100Km: 5, quantiteCO2: 0, date: new Date(Date.now()), typeVoyage: 'voiture', typeCarburant: 'diesel' },
+    { distanceKm: 150, consommationPour100Km: 6, quantiteCO2: 0, date: new Date(Date.now()), typeVoyage: 'voiture', typeCarburant: 'diesel' },
+    { distanceKm: 250, consommationPour100Km: 7, quantiteCO2: 0, date: new Date(Date.now()), typeVoyage: 'voiture', typeCarburant: 'diesel' },
+    { distanceKm: 350, consommationPour100Km: 8, quantiteCO2: 0, date: new Date(Date.now()), typeVoyage: 'voiture', typeCarburant: 'diesel' },
+    { distanceKm: 450, consommationPour100Km: 9, quantiteCO2: 0, date: new Date(Date.now()), typeVoyage: 'voiture', typeCarburant: 'diesel' }
   ];
 
   constructor() {
@@ -20,12 +20,13 @@ export class CarbonFootprintComputeService {
     });
   }
 
-  getVoyages(): Promise<Voyage[]> {
-    return new Promise((resolve, reject) => {
-      setTimeout(() => {
-        resolve(this.listVoyages);
-      }, 3000);
-    });
+  async getVoyages(): Promise<Voyage[]> {
+    return this.listVoyages;
+    // return new Promise((resolve, reject) => {
+    //   setTimeout(() => {
+    //     resolve(this.listVoyages);
+    //   }, 3000);
+    // });
   }
 
   async addVoyage(voyage: Voyage) {
@@ -44,5 +45,4 @@ export class CarbonFootprintComputeService {
     }
     return { distanceTotaleKm, consommationTotalePour100Km, quantiteTotaleCO2 };
   }
-  
 }

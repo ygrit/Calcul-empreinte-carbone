@@ -34,8 +34,7 @@
                 <th>Quantité totale de CO²</th>
                 <th>Date du voyage</th>
                 <th>Type de voyage</th>
-                <th>Type de carburant</th>
-
+                <th></th>
             </tr>
         </thead>
         <tbody>
@@ -50,18 +49,18 @@
                 <td>{{ voyage.quantiteCO2 | number: '1.2-2' }} g</td>
                 <td>{{ voyage.date | date: 'dd/MM/yyyy' }}</td>
                 <td>{{ voyage.typeVoyage }}</td>
-                <td>{{ voyage.typeCarburant || '-' }}</td>
-
+                <td><button matButton="filled" (click)="ajouterEmpreinteCeVoyage(voyage.quantiteCO2)">Ajouter l'empreinte carbone de ce voyage</button></td>
             </tr>
             }
         </tbody>
     </table>
     
     <button matButton="filled" (click)="genererVoyage()">Générer voyage</button>
+    <button matButton="filled" (click)="ajouterEmpreinteTousVoyages()">Ajouter l'empreinte carbone de tous les voyages</button>
     
     <hr>
 
-    <app-carbon-footprint-form></app-carbon-footprint-form>
+    <app-carbon-footprint-form (addVoyageEvent)="rafraichirVoyages($event)"></app-carbon-footprint-form>
     
     <hr>
 

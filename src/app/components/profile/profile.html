@@ -1,8 +1,31 @@
-<h1>Profil de {{ nomUtilisateur }}</h1>
 <div>
-    <h4> Résume de vos voyages et empreinte carbon </h4>
-    <p>{{distanceTotaleKm}} </p>
-    <p>{{consommationTotalePour100Km}} </p> 
-    <p> {{quantiteTotaleCO2}}</p>
-    <button matButton="filled" (click) >Réinitialiser votre empreinte carbon</button>
+    <h1>Profil de {{ nomUtilisateur }}</h1>
+
+    <div>
+        <h2>Votre empreinte carbone : {{ empreinteCarbone }} g</h2>
+    </div>
+    <div>
+        <button matButton="filled" (click)="reinitCarbonFootprint()">Réinitialiser votre empreinte carbone</button>
+    </div>
+
+    <form>
+        <fieldset>
+            <legend>Retirer de l'empreinte carbone</legend>
+            <div>
+                <label for="empreinteCarboneARetirer">Empreinte carbone : </label>
+                <input type="number" id="empreinteCarboneARetirer" name="empreinteCarboneARetirer" min="0" [(ngModel)]="empreinteCarboneARetirer">
+            </div>
+            <div>
+                <button matButton="filled" type="submit" (click)="removeCarbonFootprint()">Retirer</button>
+            </div>
+        </fieldset>
+    </form>
+
+    <p>
+        {{ requestState() }}
+    </p>
+
+    <div>
+        <button matButton="filled" [routerLink]="['/summary']">Retour</button>
+    </div>
 </div>

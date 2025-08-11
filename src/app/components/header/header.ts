@@ -1,4 +1,4 @@
-import { Component, inject, signal, WritableSignal } from '@angular/core';
+import { Component, inject, Input, signal, WritableSignal } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { MatButtonModule } from '@angular/material/button';
 import { MatToolbarModule } from '@angular/material/toolbar';
@@ -14,6 +14,8 @@ import { User } from '../../services/user';
 export class Header {
   // Création d'un signal
   nomUtilisateur: WritableSignal<string> = signal('');
+  @Input()
+  title: string = '';
 
   private userSrv: User = inject(User);
 
